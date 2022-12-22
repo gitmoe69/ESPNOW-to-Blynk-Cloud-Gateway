@@ -59,8 +59,10 @@ void loop() {
                                                   // Sending Tempreature Every 4 Seconds
   float temp = dht.readTemperature();
   float hum = dht.readHumidity();
+  int ident = 3;                           // change to unique identity number for each sensor
   doc_to_espnow["v1"] = temp;                       // Creating JSON data. Here { v1 : 28.55 }
   doc_to_espnow["v2"] = hum;                       // Creating JSON data. Here { v2 : 34.35 }
+  doc_to_espnow["v3"] = ident; 
   serializeJson(doc_to_espnow, send_jsondata);
   esp_now_send(broadcastAddress, (uint8_t *) send_jsondata.c_str(), send_jsondata.length());
 
@@ -68,6 +70,8 @@ void loop() {
       Serial.println(temp);
       Serial.print("Hum = ");
       Serial.println(hum);
+      Serial.print("Ident = ");
+      Serial.println(ident);
                                                     // Sending it to Coordinater ESP
   Serial.println(send_jsondata); 
   send_jsondata = "";
