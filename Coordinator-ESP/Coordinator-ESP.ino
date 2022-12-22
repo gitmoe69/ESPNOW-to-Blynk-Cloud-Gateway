@@ -42,6 +42,9 @@ String recv_jsondata;               // recieved JSON string
 int temp1 = 0;
 int hum2 = 0;
 int ident3 = 0;
+int temp4 = 0;
+int hum5 = 0;
+int ident6 = 0;
 
 // Hardware Serial 2
 #define RXD2 16
@@ -75,6 +78,9 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len)
     temp1  = doc_from_espnow["v1"];                 // Storing Temperature Data
     hum2  = doc_from_espnow["v2"];                 // Storing Humidity Data
     ident3  = doc_from_espnow["v3"];                 // Storing Humidity Data
+    temp4  = doc_from_espnow["v4"];                 // Storing Temperature Data
+    hum5  = doc_from_espnow["v5"];                 // Storing Humidity Data
+    ident6  = doc_from_espnow["v6"];                 // Storing Humidity Data
     serializeJson(doc_from_espnow, Serial2);            // Writing Data to Serial2
   }
 
