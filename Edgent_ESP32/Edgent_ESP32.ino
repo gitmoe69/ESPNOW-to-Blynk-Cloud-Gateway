@@ -90,16 +90,30 @@ void loop() {
     DeserializationError error = deserializeJson(doc_recv, recv_str_jsondata);
 
     if (!error) {                                           // if not error in deserialization
-      float temp = doc_recv["v1"];                       // fetch temprature data from JSON . Here { v1 : 28.55 }
-      float hum = doc_recv["v2"];                       // fetch temprature data from JSON . Here { v2 :32.25 }
-
-      if (temp > 0) {
-        Blynk.virtualWrite(V1, temp);                     // writing temprature to BLYNK Cloud
-        Serial.print("temp ="); Serial.println(temp);
+      float temp1 = doc_recv["v1"];                       // fetch temprature data from JSON . Here { v1 : 28.55 }
+      float hum2 = doc_recv["v2"];                       // fetch temprature data from JSON . Here { v2 :32.25 }
+      int ident3 = doc_recv["v3"];
+      
+      float temp4 = doc_recv["v4"];                       // fetch temprature data from JSON . Here { v1 : 28.55 }
+      float hum5 = doc_recv["v5"];                       // fetch temprature data from JSON . Here { v2 :32.25 }
+      int ident6 = doc_recv["v6"];     
+      if (temp1 > -1) {
+        Blynk.virtualWrite(V1, temp1);                     // writing temprature to BLYNK Cloud
+        Blynk.virtualWrite(V4, temp4);                     // writing temprature to BLYNK Cloud
+        Serial.print("temp1 ="); Serial.println(temp1);
+        Serial.print("temp4 ="); Serial.println(temp4);
       }
-      if (hum > 0) {
-        Blynk.virtualWrite(V2, hum);                     // writing temprature to BLYNK Cloud
-        Serial.print("hum ="); Serial.println(hum);
+      if (hum2 > -1) {
+        Blynk.virtualWrite(V2, hum2);                     // writing temprature to BLYNK Cloud
+        Blynk.virtualWrite(V5, hum5);                     // writing temprature to BLYNK Cloud
+        Serial.print("hum2 ="); Serial.println(hum2);
+        Serial.print("hum5 ="); Serial.println(hum5);
+      }
+      if (ident3 > -1) {
+        Blynk.virtualWrite(V3, ident3);                     // writing temprature to BLYNK Cloud
+        Blynk.virtualWrite(V6, ident6);                     // writing temprature to BLYNK Cloud
+        Serial.print("ident3 ="); Serial.println(ident3);
+        Serial.print("ident6 ="); Serial.println(ident6);
       }
 
     }

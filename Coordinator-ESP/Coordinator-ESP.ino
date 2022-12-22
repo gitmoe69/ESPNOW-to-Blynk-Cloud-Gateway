@@ -39,8 +39,9 @@ StaticJsonDocument<256> doc_to_espnow; // JSON Doc for Transmitting data to ESPN
 
 String recv_jsondata;               // recieved JSON string
 
-int temperature = 0;
-int humidity = 0;
+int temp1 = 0;
+int hum2 = 0;
+int ident3 = 0;
 
 // Hardware Serial 2
 #define RXD2 16
@@ -71,8 +72,9 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len)
   if (!error) {
     Serial.print("Serilising to Serial2: ");
     Serial.println(recv_jsondata);
-    temperature  = doc_from_espnow["v1"];                 // Storing Temperature Data
-    humidity  = doc_from_espnow["v2"];                 // Storing Humidity Data
+    temp1  = doc_from_espnow["v1"];                 // Storing Temperature Data
+    hum2  = doc_from_espnow["v2"];                 // Storing Humidity Data
+    ident3  = doc_from_espnow["v3"];                 // Storing Humidity Data
     serializeJson(doc_from_espnow, Serial2);            // Writing Data to Serial2
   }
 
@@ -93,9 +95,9 @@ void displayText()
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(2, 10);
   display.print("Temperature :");
-  display.println(temperature);
+  display.println(temp1);
   display.print("Humidity :");
-  display.println(humidity);
+  display.println(hum2);
   display.display();
 }
 
@@ -158,7 +160,18 @@ void setup() {
 
 void loop()
 {
-
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(2, 10);
+  display.print("Temp:");
+  display.println(temp1);
+  display.print("Humid:");
+  display.println(hum2);
+  display.print("Identity:");
+  display.println(ident3);
+  display.display();
+  
   if (Serial2.available())
   {
     // Recieving data (JSON) from BLYNK ESP
